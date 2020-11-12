@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label 'ACI-container'
+        label 'docker-labs'
     }
 
     stages {
