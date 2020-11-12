@@ -1,9 +1,6 @@
 pipeline {
     agent {
-        docker { 
-          image 'cloudbees/jnlp-slave-with-java-build-tools' 
           label 'docker-labs'
-        }
     }
 
     stages {
