@@ -11,7 +11,8 @@ pipeline {
         }
         stage('AlgoPrep-DataStructure') {
             steps {
-                sh 'mvn compile install package -f ./algoprep/pom.xml'
+                sh 'mvn clean compile install assembly:single -f ./algoprep/pom.xml'
+                sh 'java -jar ./algoprep/target/algoprep-1.0-SNAPSHOT-jar-with-dependencies.jar'
             }
         }
     }
