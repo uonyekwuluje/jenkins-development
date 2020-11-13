@@ -1,13 +1,11 @@
 package com.algorithms.app;
 
-/**
- * Hello world!
- *
- */
 public class App 
 {
     public static void main( String[] args )
     {
+        InsertionSort insort = new InsertionSort();
         System.out.println( "Hello World!" );
+        insort.sort();
     }
 }
