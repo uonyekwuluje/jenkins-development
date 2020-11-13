@@ -4,14 +4,14 @@ pipeline {
     }
 
     stages {
-        stage('Build') { 
+        stage('WebProject') { 
             steps {
                 sh 'mvn compile install package -f ./javaWeb/pom.xml' 
             }
         }
-        stage('Deliver') {
+        stage('AlgoPrep-DataStructure') {
             steps {
-                sh 'ls javaWeb/'
+                sh 'mvn compile install package -f ./algoprep/pom.xml'
             }
         }
     }
