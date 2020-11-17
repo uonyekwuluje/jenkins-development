@@ -22,8 +22,8 @@ pipeline {
         stage ('Upload') {
             steps {
                 rtUpload (
-                    buildName: JOB_NAME,
-                    buildNumber: BUILD_NUMBER,
+                    buildName: "test-build",
+                    buildNumber: $BUILD_NUMBER,
                     serverId: jfrog-artifactory-server, 
                     spec: '''{
                               "files": [
@@ -32,7 +32,7 @@ pipeline {
                                   "target": "java-repository-local"
                                 } 
                              ]
-                        }'''    
+                        }''',
                     )
             }
         }
