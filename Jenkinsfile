@@ -4,10 +4,6 @@ pipeline {
     }
 
     stages {
-        stage ('checkout') {
-            checkout scm
-        }
-
         stage('Build-WebProject') { 
             steps {
                 sh 'mvn compile install package -f ./javaWeb/pom.xml' 
