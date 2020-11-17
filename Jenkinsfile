@@ -29,8 +29,7 @@ pipeline {
                               "files": [
                                  {
                                   "pattern": "**/target/*.jar",
-                                  "target": "java-repository-local",
-                                  "recursive": "false"
+                                  "target": "java-repository-local"
                                 } 
                              ]
                         }'''    
