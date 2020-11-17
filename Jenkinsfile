@@ -19,5 +19,24 @@ pipeline {
                 sh 'java -jar ./algoprep/target/algoprep-1.0-SNAPSHOT-jar-with-dependencies.jar'
             }
         }
+        stage('Upload-Artifact') {
+            steps {
+                rtUpload (
+                    buildName: JOB_NAME,
+                    buildNumber: BUILD_NUMBER,
+                    serverId: jfrog-artifactory-server, 
+                    spec: '''{
+                              "files": [
+                                 {
+                                  "pattern": "$WORKSPACE/Demo-Artifactory/Artifact_*",
+                                  "target": "result/",
+                                  "recursive": "false"
+                                } 
+                             ]
+                        }'''    
+                    )
+            }
+        }
+
     }
 }
