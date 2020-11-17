@@ -28,8 +28,8 @@ pipeline {
                     spec: '''{
                               "files": [
                                  {
-                                  "pattern": "$WORKSPACE/Demo-Artifactory/Artifact_*",
-                                  "target": "result/",
+                                  "pattern": "**/target/*.jar",
+                                  "target": "java-repository-local",
                                   "recursive": "false"
                                 } 
                              ]
