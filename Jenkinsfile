@@ -4,6 +4,10 @@ pipeline {
     }
 
     stages {
+        stage ('checkout') {
+            checkout scm
+        }
+
         stage('Build-WebProject') { 
             steps {
                 sh 'mvn compile install package -f ./javaWeb/pom.xml' 
@@ -20,22 +24,23 @@ pipeline {
             }
         }
         stage('Upload-Artifact') {
-            steps {
-                rtUpload (
-                    buildName: JOB_NAME,
-                    buildNumber: BUILD_NUMBER,
-                    serverId: jfrog-artifactory-server, 
-                    spec: '''{
-                              "files": [
-                                 {
-                                  "pattern": "**/target/*.jar",
-                                  "target": "java-repository-local",
-                                  "recursive": "false"
-                                } 
-                             ]
-                        }'''    
-                    )
-            }
+           def server = Artifactory.server 
+           def buildInfo = Artifactory.newBuildInfo()
+           buildInfo.env.capture = true
+           buildInfo.env.collect() 
+
+           def uploadSpec = """{
+             "files": [
+              {
+                 "pattern": "**/target/*.jar",
+                 "target": "java-repository-local"
+              }
+            ]
+           }"""
+           server.upload spec: uploadSpec, buildInfo: buildInfo
+           buildInfo.retention maxBuilds: 10, maxDays: 7, deleteBuildArtifacts: true
+           server.publishBuildInfo buildInfo 
+
         }
 
     }
