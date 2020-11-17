@@ -44,7 +44,7 @@ pipeline {
                         }
             }
         }
-        stage('Notify') {
+        /*stage('Notify') {
             steps {
                 echo 'Mail Notification...'
                 mail body: 'Project build successful for job named testpipeline-1',
@@ -52,6 +52,6 @@ pipeline {
                 subject: 'project build successful',
                 to: 'uionyekwuluje@gmail.com'
             }
-        }
+        }*/
     }
 }
