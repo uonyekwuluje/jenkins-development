@@ -3,6 +3,17 @@ pipeline {
           label 'docker-labs'
     }
 
+    environment {
+      def uploadSpec = """{
+        "files": [
+         {
+          "pattern": "**/target/*.jar",
+          "target": "java-repository-local"
+         } 
+        ]
+      }"""
+    }
+
     stages {
         stage('Build-WebProject') { 
             steps {
@@ -17,22 +28,6 @@ pipeline {
         stage('Test-AlgoPrep-DataStructure') {
             steps {
                 sh 'java -jar ./algoprep/target/algoprep-1.0-SNAPSHOT-jar-with-dependencies.jar'
-            }
-        }
-        stage ('Upload') {
-            steps {
-                rtUpload (
-                    buildName: "test-build",
-                    serverId: jfrog-artifactory-server, 
-                    spec: '''{
-                              "files": [
-                                 {
-                                  "pattern": "**/target/*.jar",
-                                  "target": "java-repository-local"
-                                } 
-                             ]
-                        }''',
-                    )
             }
         }
     }
