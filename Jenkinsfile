@@ -23,7 +23,6 @@ pipeline {
             steps {
                 rtUpload (
                     buildName: "test-build",
-                    buildNumber: $BUILD_NUMBER,
                     serverId: jfrog-artifactory-server, 
                     spec: '''{
                               "files": [
