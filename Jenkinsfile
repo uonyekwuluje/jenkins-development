@@ -19,25 +19,5 @@ pipeline {
                 sh 'java -jar ./algoprep/target/algoprep-1.0-SNAPSHOT-jar-with-dependencies.jar'
             }
         }
-        stage('Upload-Artifact') {
-           def server = Artifactory.server 
-           def buildInfo = Artifactory.newBuildInfo()
-           buildInfo.env.capture = true
-           buildInfo.env.collect() 
-
-           def uploadSpec = """{
-             "files": [
-              {
-                 "pattern": "**/target/*.jar",
-                 "target": "java-repository-local"
-              }
-            ]
-           }"""
-           server.upload spec: uploadSpec, buildInfo: buildInfo
-           buildInfo.retention maxBuilds: 10, maxDays: 7, deleteBuildArtifacts: true
-           server.publishBuildInfo buildInfo 
-
-        }
-
     }
 }
